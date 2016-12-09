@@ -1,0 +1,54 @@
+<html>
+	<head>
+		<style>
+		</style>
+		<link rel="stylesheet" href="stylesheet.css"/>
+		<link rel="shortcut icon" href="icon.png"/>
+		<title>Purecode Editor</title>
+	</head>
+	<body>
+		<input type="file" id="mfile"/>
+		<div class="banner top">
+			<div id="language" dropdown>Syntax<span> &#x25BC </span>
+				<br/>
+				<span id="spanDropdownCLang">No Syntax</span>
+				<div langData="No Syntax">None</div>
+				<div langData="BatchFile">BatchFile</div>
+				<div langData="C and C++">C and C++</div>
+				<div langData="C#">C#</div>
+				<div langData="CSS">CSS</div>
+				<div langData="HTML">HTML</div>
+				<div langData="Java">Java</div>
+				<div langData="JavaScript">JavaScript</div>
+				<div langData="JSON">JSON</div>
+				<div langData="MySQL">MySQL</div>
+				<div langData="PHP">PHP</div>
+				<div langData="Python">Python</div>
+				<div langData="SASS">SASS</div>
+				<div langData="SQL">SQL</div>
+				<div langData="SQLServer">SQLServer</div>
+				<div langData="VBScript">VBScript</div>
+				<div langData="XML">XML</div>
+				<div langData="YAML">YAML</div>
+			</div>
+			<img src="img/download.png" height="80%" style="margin-left:8%" onclick="downloadAction(this)" id="download"></img>
+			<img src="img/file.png" height="80%" style="margin-left:12%" onclick="fileAction(this)" id="file"></img>
+			<div class="banner files">
+			</div>
+		</div>
+		<div class="editorNesting">
+			<pre id="editor"></pre>
+		</div>
+		<div class="banner bottom">
+		</div>
+		<script src="src/ace.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+	<body>
+		<script>
+		</script>
+	</body>
+</html>
+<script src="jquery.js"></script>
+<script src="script.js"></script>
+<script src="language.json"></script>
+<script src="http://danml.com/js/download2.js"></script>
