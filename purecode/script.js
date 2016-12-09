@@ -1,10 +1,11 @@
+var uri = "https://raw.githubusercontent.com/Teh64/ace-builds/master"
 var editor = ace.edit("editor");
-editor.setTheme("ace/theme/solarized_dark");
-editor.session.setMode("ace/mode/txt");
+editor.setTheme(uri + "/theme/solarized_dark");
+editor.session.setMode(uri + "/mode/txt");
 editor.setShowPrintMargin(false);
 
 $("select#language").change(function(){
-	editor.session.setMode("ace/mode/" + $(this).val().toLowerCase());
+	editor.session.setMode(uri + "/mode/" + $(this).val().toLowerCase());
 });
 $("div[dropdown]").hover(function(){
 	$(this).animate({
@@ -21,7 +22,7 @@ $("div[dropdown]").mouseleave(function(){
 $("div[dropdown] > div").click(function(){
 	var n = $(this).attr("langData")
 	$("#spanDropdownCLang").html(n);
-	editor.session.setMode("ace/mode/" + n.toLowerCase())
+	editor.session.setMode(uri + "/mode/" + n.toLowerCase())
 })
 $("input#mfile").click(function(e){
 	e.preventDefault();
@@ -43,7 +44,7 @@ $("input#mfile").change(function(e){
 	var ftypeS = fname.split(".")
 	ftype = ftypeS[ftypeS.length-1];
 	ftype = eval("language." + ftype)
-	editor.session.setMode("ace/mode/" + ftype.toLowerCase());
+	editor.session.setMode(uri + "/mode/" + ftype.toLowerCase());
 	$("#spanDropdownCLang").html(ftype);
 });
 $("html").on("dragover", function(e){
