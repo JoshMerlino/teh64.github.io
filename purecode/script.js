@@ -1,4 +1,4 @@
-var uri = "https://raw.githubusercontent.com/Teh64/ace-builds/master"
+var uri = "ace"
 var editor = ace.edit("editor");
 editor.setTheme(uri + "/theme/solarized_dark");
 editor.session.setMode(uri + "/mode/txt");
