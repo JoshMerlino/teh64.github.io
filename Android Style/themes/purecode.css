@@ -1,0 +1,113 @@
+/**
+ * PureCode theme
+ *
+ * @author Josh Merlino
+ * @version 1.0.1
+ */
+pre {
+    background: #F8F9FF;
+    word-wrap: break-word;
+    margin: 0px;
+    padding: 10px;
+    color: #000;
+    font-size: 20px;
+    margin-bottom: 20px;
+	font-weight:800;
+	-webkit-border-radius: 5px;
+}
+
+pre, code {
+    font-family: 'Monaco', courier, monospace;
+}
+
+pre .comment {
+    color: #00A500;
+}
+
+pre .constant {
+    color: #F00;
+	font-weight:900;
+}
+
+pre .storage {
+    color: #CC7833;
+}
+
+pre .string {
+    color: #0AA;
+}
+
+pre .keyword, pre .selector {
+    color: #005;
+	font-weight:900;
+	font-style:italic;
+}
+
+pre .inherited-class {
+    font-style: italic;
+}
+
+pre .support.tag {
+    color: #A50000;
+}
+span.entity.tag.script {
+    color: #A50000;
+}
+pre .support.attribute{
+	color: #F00;
+}
+pre > code[data-language="html"] > .string.value{
+	color:#00F
+}
+
+pre > code[data-language="html"] > .string{
+	color:#00F
+}
+
+pre > code[data-language="css"] > .string.value{
+	color:#00F
+}
+
+pre > code[data-language="css"] > .string{
+	color:#00F
+}
+pre > code[data-language="css"] > .entity.name.tag{
+	color: #F00;
+}
+pre > code[data-language="css"] > .entity.name.pseudo{
+	color: #A50000;
+}
+pre > code[data-language="css"] > .entity.name.class{
+	color: #A50000;
+}
+pre > code[data-language="css"] > .entity.name.id{
+	color: #005;
+}
+pre > code[data-language="javascript"] > .keyword.operator{
+	color: #003;
+	font-style:normal;
+}
+pre > code[data-language="javascript"] > .constant.language{
+	color: #A50000;
+	font-style:normal;
+}
+pre > code[data-language="javascript"] > .support{
+	color: #800080;
+}
+pre > code[data-language="javascript"] > .entity.function{
+	color: #400080;
+}
+pre > code[data-language="javascript"] > .function.call{
+	color: #400080;
+}
+pre > code[data-language="javascript"] > .storage.function{
+	color: #005;
+    font-weight: 900;
+    font-style: italic;
+}
+pre > code[data-language="javascript"] > .entity.name.function{
+	color: #00A;
+}
+pre > code[data-language="javascript"] > .support.method{
+	color: #A00;
+}

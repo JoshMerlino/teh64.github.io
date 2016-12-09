@@ -1,0 +1,38 @@
+<head>
+	<title>
+		Usage Rights
+	</title>
+	<link rel="shortcut icon" href="../config/gif/icon.gif">
+	<link rel="stylesheet" type="text/css" href="docs/style.css">
+</head>
+<body>
+	<center>
+		<img src="docs/CORE-LOGO.png" height="150" width="500"/>
+		<br/>
+		<a href="index.html">Return to Home</a>
+		<br/>
+		<h3 style="background-color:#A5A5A5; color:#B50000"><br>TERMS AND AGGREMENTS<br>YOU WONT REDISTRIBUTE THIS AS YOUR OWN SOFTWARE<br>DO NOT RE DISTRIBUTE<br>NO SERVERHACKING<br>INSTALL FILES USING THE APP<br><br></h3>
+		<br/>
+		<txt><input type="checkbox" id="psq" checked disabled>I Agree to the Terms and Agreements<br></txt>
+		<button onClick="act();"><txt>Not Downloading? Try again.</txt></button>
+		<br/>
+		<div id="progressbar">
+			<div id="progress"/>
+				<div id="pbaranim">
+				</div>
+			</div>
+		</div>
+	</center>
+</body>
+<script type="text/javascript">
+	function downloadElement(file){
+		var link = document.createElement("a");
+		link.download = "Downloading";
+		link.href = file;
+		link.click();
+	}
+	downloadElement("docs/Core.js")
+	function act(){
+		downloadElement("docs/Core.js")
+	}
+</script>

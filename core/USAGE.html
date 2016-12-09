@@ -1,0 +1,28 @@
+<head>
+	<title>
+		Usage Rights
+	</title>
+	<link rel="shortcut icon" href="../config/gif/icon.gif">
+	<link rel="stylesheet" type="text/css" href="docs/style.css">
+</head>
+<body>
+	<center>
+		<img src="docs/CORE-LOGO.png" height="150" width="500"/>
+		<br/>
+		<a href="index.html">Return to Home</a>
+		<br/>
+		<h3 style="background-color:#A5A5A5; color:#B50000"><br>TERMS AND AGGREMENTS<br>YOU WONT REDISTRIBUTE THIS AS YOUR OWN SOFTWARE<br>DO NOT RE DISTRIBUTE<br>NO SERVERHACKING<br>INSTALL FILES USING THE APP<br><br></h3>
+		<br/>
+		<txt><input type="checkbox" id="psq">I Agree to the Terms and Agreements<br></txt>
+		<button onClick="act();"><txt>Download</txt></button>
+	</center>
+</body>
+<script type="text/javascript">
+	function act(){
+		if(document.getElementById("psq").checked){
+			window.location.assign("DOWNLOADING.html")
+		} else {
+			alert("You Must Agree to The Terms");
+		}
+	}
+</script>

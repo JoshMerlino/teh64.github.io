@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+*{font-family: 'Roboto', sans-serif;}
+*{font-size: 14pt;}
+*{font-weight: 200;}
+*{outline:0;}
+button.material {
+	all:none;
+	border:none;
+	height:36px;
+	padding:16px;
+	padding-top:8px;
+	border-radius:2pt;
+	text-transform:uppercase;
+	color:#EFEFEF;
+	background-color:#CCC;
+	border-bottom:1px solid #BBB;
+	margin:2px;
+}
+button.material {
+	position:relative;
+	overflow:hidden;
+}
+button.material:after {
+	content:"";
+	background:rgba(255,255,255,0.5);
+	display:block;
+	position:absolute;
+	border-radius:50%;
+	padding-top:240%;
+	padding-left:240%;
+	margin-top:-120%;
+	margin-left:-120%;
+	opacity:0;
+	transition:all 1s;
+}
+button.material:active:after {
+	padding-top:0;
+	padding-left:0;
+	margin-top:0;
+	margin-left:0;
+	opacity:1;
+	transition:0s;
+}
+
+button.material:hover {
+	opacity:0.95;
+}
+button.material.blue {
+	color:#FFF;
+	background-color:#2196F3;
+	border-bottom:1px solid #1B8BB9;
+}
+.material.red {
+	color:#FFF;
+	background-color:#EA4335;
+	border-bottom:1px solid #B9271B;
+}
+button.material.green {
+	color:#FFF;
+	background-color:#34A853;
+	border-bottom:1px solid #096D24;
+}
+button.material.yellow {
+	color:#FFF;
+	background-color:#FBBC05;
+	border-bottom:1px solid #BB8B00;
+}
+button.material.teal {
+	color:#FFF;
+	background-color:#00BCD5;
+	border-bottom:1px solid #037786;
+}
+button.material.purple {
+	color:#FFF;
+	background-color:#9C27B0;
+	border-bottom:1px solid #620572;
+}
+button.material.orange {
+	color:#FFF;
+	background-color:#FF8F00;
+	border-bottom:1px solid #CE7300;
+}
+input[type="text"].material {
+	background-color:#FFF;
+	height:36px;
+	width:396px;
+	border:none;
+	border-bottom:2px solid #AAA;
+	color:#555;
+	margin:2px;
+}
+input[type="text"].material:focus {
+	border-bottom:2px solid #AAA;
+}
+input[type="text"].material.blue:focus {
+	border-bottom:2px solid #2196F3;
+}
+input[type="text"].material.red:focus {
+	border-bottom:2px solid #EA4335;
+}
+input[type="text"].material.green:focus {
+	border-bottom:2px solid #34A853;
+}
+input[type="text"].material.yellow:focus {
+	border-bottom:2px solid #FBBC05;
+}
+input[type="text"].material.teal:focus {
+	border-bottom:2px solid #00BCD5;
+}
+input[type="text"].material.purple:focus {
+	border-bottom:2px solid #9C27B0;
+}
+input[type="text"].material.orange:focus {
+	border-bottom:2px solid #FF8F00;
+}

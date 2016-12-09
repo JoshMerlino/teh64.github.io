@@ -1,0 +1,33 @@
+input#term {
+	background-color:rgba(0,0,0,0);
+	color:#80f;
+	padding:2px;
+	border:none;
+	border-bottom:2px solid #80f;
+	font-size:18px;
+	width:80%;
+}
+div.wipe {
+	top:0px;
+	left:-50px;
+	width:100%;
+	margin:none;
+	height:0%;
+	position:absolute;
+	background-color:#80f;
+}
+div.after {
+	display:none;
+}
+canvas {
+	border:none;
+    background-repeat: no-repeat;
+	background-size: 600px 320px;
+	padding:5px;
+}
+canvas#d {
+	background-image: url('dark.png');
+}
+canvas#l {
+	background-image: url('light.png');
+}

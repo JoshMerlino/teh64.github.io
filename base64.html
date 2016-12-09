@@ -1,0 +1,47 @@
+<head>
+	<link rel="shortcut icon" href="config/gif/icon.gif">
+	<link rel="stylesheet" type="text/css" href="config/stylesheet.css">
+	<title>Picix Official</title>
+</head>
+<body>
+	<center>
+		<img src="config/gif/icon.gif" id="logo" height="150" width="150" onclick="logoOnClick('config');"/>
+		<br>
+		<a href="index.html">Toolbox</a>
+		<br>
+	</center>
+		<br>
+		<h6 style="margin-left:100px;">Encode/Decode Type</h6>
+		<div>
+			<input type="radio" name="mode" id="radio1" class="radio" style="display:none;" checked/>
+			<label for="radio1">
+				<h6>Encode</h6></label>
+		</div>
+		<div>
+			<input type="radio" name="mode" id="radio2" class="radio" style="display:none;" />
+			<label for="radio2">
+				<h6>Decode</h6></label>
+		</div>
+		<h6 style="color:#DDD;">-</h6>
+		<h6 style="color:#DDD;">-</h6>
+		<label><input id="input" type="text" /><br><br><button onclick="submit()">Submit</button></label>
+	</center>
+	<br>
+	<br>
+	<textarea style="width:99%; height:45%;" id="output">Your Output will appear here.</textarea>
+</body>
+<noscript>Sorry, your browser does not support JavaScript!</noscript>
+<script src="config/script.js"></script>
+<script src="Graphics/graphics.js"></script>
+<script>
+Graphics.snow();
+loop();
+function submit(){
+	if(document.getElementById("radio1").checked){
+		document.getElementById("output").value = window.btoa(document.getElementById("input").value)
+	} else if(document.getElementById("radio2").checked){
+		document.getElementById("output").value = window.atob(document.getElementById("input").value)
+	}
+}
+</script>
+<noscript><br><center><a href="NULL/noscript.html">Sorry, your browser does not support JavaScript!</a></center></noscript>
