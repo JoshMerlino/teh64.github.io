@@ -1,0 +1,3 @@
+@ECHO OFF
+COLOR 9F
+START "PICIX OFFICIAL" "index.html
