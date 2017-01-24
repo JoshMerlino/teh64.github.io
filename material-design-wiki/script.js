@@ -11,20 +11,19 @@ $(document).ready(function(){
 		})
 	})
 	$(".navmenu.option").click(function(){
-		$(".navmenu.option").removeClass("sel");
-		$(this).addClass("sel")
-		
-		var t = $(this).offset().top + 172
-		
-		$(this).animate({
-			color:"#FFF"
-		}, 200).siblings().not(".tit").animate({
-			color: "#000"
-		}, 200)
-		
-		$(".navmenu.option.back").animate({
-			top:t
-		}, 200);
+		if(!$(this).hasClass("sel")){
+			$(".navmenu.option").removeClass("sel");
+			$(this).addClass("sel")
+			
+			var w = $(this).width() - 16
+			$(this).animate({
+				borderWidth:"16px",
+				width:w
+			}, 200).siblings().animate({
+				borderWidth:"0px",
+				width:w + 16
+			}, 200)
+		}
 		var cn = $(this).attr("class").split(" ")[2]
 		$(".content").css({
 			display: "none"

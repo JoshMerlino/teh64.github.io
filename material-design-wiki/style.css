@@ -83,6 +83,7 @@ body {
 	cursor:pointer;
 	user-select:none;
 	z-index:9;
+	border-left: 0px solid var(--second-color)
 }
 .navmenu.option.tit, .navmenu.option.back {
 	background-color:var(--second-color);
@@ -96,14 +97,6 @@ body {
 }
 .navmenu.option.material {
 	color:#FFF;
-}
-.navoption-behind {
-	position:absolute;
-	width:100%;
-	height:64px;
-	left:-360px;
-	background-color:var(--second-color);
-	z-index:8;
 }
 p {
 	font-family:roboto;
