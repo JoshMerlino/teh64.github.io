@@ -1,0 +1,123 @@
+:root {
+	--banner-color:#3e50b4;
+	--second-color:#e91d62;
+	--third-color:#ccdb38;
+}
+body {
+	background-color:#EFEFEF;
+}
+.content:not(.material){
+	display:none;
+}
+.content {
+	position:absolute;
+	padding:8px;
+	top:92px;
+	height:100%;
+	width:98%;
+	bottom:0px;
+	left:12px;
+	right:12px;
+	overflow:scroll;
+}
+.banner.top {
+	position:fixed;
+	height:64px;
+	left:0px;
+	top:0px;
+	background-color:var(--banner-color);
+	width:100%;
+	box-shadow: 0px 2px 38px 0px rgba(0,0,0,0.5);
+	z-index:10;
+}
+.material-icons.menu {
+	position:fixed;
+	user-select:none;
+	font-size:24px;
+	color:#FFF;
+	cursor:pointer;
+	padding:20px;
+	padding-left:24px;
+}
+.banner.top .title {
+	color:#FFF;
+	font-size:18px;
+	font-family:roboto;
+	font-weight:400;
+	line-height:64px;
+	position:absolute;
+	left:72px;
+	display:block;
+	top:-12px;
+	padding:0px;
+	vertical-align:middle;
+	text-decoration:none;
+}
+.banner.top .title.end {
+	float:right;
+	padding-right:18px;
+	position:static;
+}
+.banner.sidebar {
+	background-color:#FFF;
+	position:fixed;
+	z-index:9;
+	top:64px;
+	left:-360px;
+	height:100%;
+	bottom:0px;
+	width:360px;
+}
+.navmenu.option {
+	position:absolute;
+	width:100%;
+	height:64px;
+	text-align:center;
+	line-height:64px;
+	vertical-align:middle;
+	font-family:roboto;
+	font-size:20px;
+	color:#000;
+	display:tabel-cell;
+	transition: box-shadow 0.1s linear;
+	cursor:pointer;
+	user-select:none;
+	z-index:9;
+}
+.navmenu.option.tit, .navmenu.option.back {
+	background-color:var(--second-color);
+	color:#FFF;
+}
+.navmenu.option.back {
+	top:0px;
+}
+.navmenu.option:hover {
+	box-shadow: inset 0px 0px 0px 9999px rgba(0,0,0,.05);
+}
+.navmenu.option.material {
+	color:#FFF;
+}
+.navoption-behind {
+	position:absolute;
+	width:100%;
+	height:64px;
+	left:-360px;
+	background-color:var(--second-color);
+	z-index:8;
+}
+p {
+	font-family:roboto;
+	font-size:16px;
+	margin:2px;
+	margin-top:16px;
+}
+h2 {
+	font-size:22px;
+	font-weight:400;
+	font-family:roboto;
+	margin:2px;
+	margin-top:24px;
+}
+img {
+	display:inline-table;
+}
