@@ -5,12 +5,13 @@
 }
 body {
 	background-color:#EFEFEF;
+	overflow:hidden;
 }
 .content:not(.material){
 	display:none;
 }
 .content {
-	position:absolute;
+	position:fixed;
 	padding:8px;
 	top:92px;
 	height:100%;
