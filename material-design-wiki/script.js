@@ -14,7 +14,7 @@ $(document).ready(function(){
 		$(".navmenu.option").removeClass("sel");
 		$(this).addClass("sel")
 		
-		var t = $(this).offset().top
+		var t = $(this).offset().top + 172
 		
 		$(this).animate({
 			color:"#FFF"
