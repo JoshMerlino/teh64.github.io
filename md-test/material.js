@@ -569,7 +569,7 @@ $.fn.hasAttr = function(a){var attr = $(this).attr(a);if (typeof attr !== typeof
 			
 			var c = $(this).attr("color")
 			var x = e.pageX;
-			var t = $(this).offset().top + 32
+			var t = $(this).offset().top + 30;
 			var d = $(this).offset().left
 			var w = $(this).width();
 			
@@ -687,8 +687,8 @@ $.fn.hasAttr = function(a){var attr = $(this).attr(a);if (typeof attr !== typeof
 				
 				$(this).attr("checked", "true")
 				
-				var l = $(this).offset().left - 448
-				var t = $(this).offset().top - 246
+				var l = $(this).offset().left - screen.width/100 * 32.75
+				var t = $(this).offset().top - screen.height/100 * 32;
 				
 				k.fadeOut(200, function(){
 					$(this).css({
