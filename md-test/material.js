@@ -691,7 +691,7 @@ $.fn.hasAttr = function(a){var attr = $(this).attr(a);if (typeof attr !== typeof
 				
 				$(this).attr("checked", "true")
 				
-				var l = $(this).offset().left - 388
+				var l = $(this).offset().left - 452
 				var t = $(this).offset().top - 173
 				
 				k.fadeOut(200, function(){
