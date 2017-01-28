@@ -172,7 +172,7 @@ $.fn.hasAttr = function(a){var attr = $(this).attr(a);if (typeof attr !== typeof
 			
 			if(d.is("input[type='checkbox']")){
 				var l = d.offset().left + 24;
-				var t = d.offset().top - 4;
+				var t = d.offset().top - 2;
 				$(this).css({
 					top:t,
 					left:l
