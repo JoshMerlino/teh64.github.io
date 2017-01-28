@@ -112,6 +112,8 @@ $.fn.hasAttr = function(a){var attr = $(this).attr(a);if (typeof attr !== typeof
 		return p 
 	}
 	$(document).ready(function(){
+		$("head").append('<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">')
+		
 		$("[color]").each(function(){
 			var p = $(this).attr("color")
 			var p = getMDColor(p)
