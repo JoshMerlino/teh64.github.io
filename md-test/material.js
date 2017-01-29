@@ -924,11 +924,13 @@ $.fn.hasAttr = function(a){var attr = $(this).attr(a);if (typeof attr !== typeof
 				
 				$(this).attr("checked", "true")
 			
-				if(SCREENDPI == 96){
-					var l = $(this).position().left + (screen.width%100*1.1686)
-					var t = $(this).position().top + (screen.height%100*1.314)
-				}
-				alert(SCREENDPI)
+				//var l = $(this).position().left + (screen.width%100*1.1686)
+				//var t = $(this).position().top + (screen.height%100*1.314)
+				
+				var l = $(this).position().left + SCREENDPI * 0.80
+				var t = $(this).position().top + SCREENDPI * 0.925
+
+				//alert(SCREENDPI)
 
 				k.fadeOut(200, function(){
 					$(this).css({

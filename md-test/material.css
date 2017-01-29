@@ -260,6 +260,6 @@ input[type='color']{
 .md-1cm {
 	poosition:fixed;
 	width:1cm;
+
 	height:1cm;
-	background:#F00;
 }
