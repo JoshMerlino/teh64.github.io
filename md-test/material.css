@@ -144,9 +144,6 @@ input[type='switch']{
 	display:block;
 	margin-top:20px;
 }
-input[type='switch']:disabled ~ span {
-	filter:grayscale(25%)
-}
 input[type='text']{
 	padding-bottom:7px;
 	border:none;
@@ -195,10 +192,14 @@ input[type='text']{
 	width:549px;
 	height:498px;
 }
+.md-popup.md-alert {
+	width:549px;
+	height:498px;
+}
 .md-popup .md-popupTitle {
 	color:#000;
 	font-size:20px;
-	font-family:'roboto condensed';
+	font-family:roboto;
 	font-weight:650;
 	user-select:none;
 	left:20px;

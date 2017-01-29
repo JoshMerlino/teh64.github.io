@@ -8,8 +8,304 @@ String.prototype.toProperCase = function() {return this.charAt(0).toUpperCase() 
 $.fn.noclick = function(cb){$(document).click(function(){(cb())}); this.click(function(e){e.stopPropagation()}); return this;}
 !function(a,b){"use strict";"function"==typeof define&&define.amd?define([],function(){return b.apply(a)}):"object"==typeof exports?module.exports=b.call(a):a.Waves=b.call(a)}("object"==typeof global?global:this,function(){"use strict";function a(a){return null!==a&&a===a.window}function b(b){return a(b)?b:9===b.nodeType&&b.defaultView}function c(a){var b=typeof a;return"function"===b||"object"===b&&!!a}function d(a){return c(a)&&a.nodeType>0}function e(a){var b=m.call(a);return"[object String]"===b?l(a):c(a)&&/^\[object (Array|HTMLCollection|NodeList|Object)\]$/.test(b)&&a.hasOwnProperty("length")?a:d(a)?[a]:[]}function f(a){var c,d,e={top:0,left:0},f=a&&a.ownerDocument;return c=f.documentElement,"undefined"!=typeof a.getBoundingClientRect&&(e=a.getBoundingClientRect()),d=b(f),{top:e.top+d.pageYOffset-c.clientTop,left:e.left+d.pageXOffset-c.clientLeft}}function g(a){var b="";for(var c in a)a.hasOwnProperty(c)&&(b+=c+":"+a[c]+";");return b}function h(a,b,c){if(c){c.classList.remove("waves-rippling");var d=c.getAttribute("data-x"),e=c.getAttribute("data-y"),f=c.getAttribute("data-scale"),h=c.getAttribute("data-translate"),i=Date.now()-Number(c.getAttribute("data-hold")),j=350-i;0>j&&(j=0),"mousemove"===a.type&&(j=150);var k="mousemove"===a.type?2500:o.duration;setTimeout(function(){var a={top:e+"px",left:d+"px",opacity:"0","-webkit-transition-duration":k+"ms","-moz-transition-duration":k+"ms","-o-transition-duration":k+"ms","transition-duration":k+"ms","-webkit-transform":f+" "+h,"-moz-transform":f+" "+h,"-ms-transform":f+" "+h,"-o-transform":f+" "+h,transform:f+" "+h};c.setAttribute("style",g(a)),setTimeout(function(){try{b.removeChild(c)}catch(a){return!1}},k)},j)}}function i(a){if(q.allowEvent(a)===!1)return null;for(var b=null,c=a.target||a.srcElement;c.parentElement;){if(!(c instanceof SVGElement)&&c.classList.contains("waves-effect")){b=c;break}c=c.parentElement}return b}function j(a){var b=i(a);if(null!==b){if(b.disabled||b.getAttribute("disabled")||b.classList.contains("disabled"))return;if(q.registerEvent(a),"touchstart"===a.type&&o.delay){var c=!1,d=setTimeout(function(){d=null,o.show(a,b)},o.delay),e=function(e){d&&(clearTimeout(d),d=null,o.show(a,b)),c||(c=!0,o.hide(e,b))},f=function(a){d&&(clearTimeout(d),d=null),e(a)};b.addEventListener("touchmove",f,!1),b.addEventListener("touchend",e,!1),b.addEventListener("touchcancel",e,!1)}else o.show(a,b),n&&(b.addEventListener("touchend",o.hide,!1),b.addEventListener("touchcancel",o.hide,!1)),b.addEventListener("mouseup",o.hide,!1),b.addEventListener("mouseleave",o.hide,!1)}}var k=k||{},l=document.querySelectorAll.bind(document),m=Object.prototype.toString,n="ontouchstart"in window,o={duration:750,delay:200,show:function(a,b,c){if(2===a.button)return!1;b=b||this;var d=document.createElement("div");d.className="waves-ripple waves-rippling",b.appendChild(d);var e=f(b),h=0,i=0;"touches"in a&&a.touches.length?(h=a.touches[0].pageY-e.top,i=a.touches[0].pageX-e.left):(h=a.pageY-e.top,i=a.pageX-e.left),i=i>=0?i:0,h=h>=0?h:0;var j="scale("+b.clientWidth/100*3+")",k="translate(0,0)";c&&(k="translate("+c.x+"px, "+c.y+"px)"),d.setAttribute("data-hold",Date.now()),d.setAttribute("data-x",i),d.setAttribute("data-y",h),d.setAttribute("data-scale",j),d.setAttribute("data-translate",k);var l={top:h+"px",left:i+"px"};d.classList.add("waves-notransition"),d.setAttribute("style",g(l)),d.classList.remove("waves-notransition"),l["-webkit-transform"]=j+" "+k,l["-moz-transform"]=j+" "+k,l["-ms-transform"]=j+" "+k,l["-o-transform"]=j+" "+k,l.transform=j+" "+k,l.opacity="1";var m="mousemove"===a.type?2500:o.duration;l["-webkit-transition-duration"]=m+"ms",l["-moz-transition-duration"]=m+"ms",l["-o-transition-duration"]=m+"ms",l["transition-duration"]=m+"ms",d.setAttribute("style",g(l))},hide:function(a,b){b=b||this;for(var c=b.getElementsByClassName("waves-rippling"),d=0,e=c.length;e>d;d++)h(a,b,c[d])}},p={input:function(a){var b=a.parentNode;if("i"!==b.tagName.toLowerCase()||!b.classList.contains("waves-effect")){var c=document.createElement("i");c.className=a.className+" waves-input-wrapper",a.className="waves-button-input",b.replaceChild(c,a),c.appendChild(a);var d=window.getComputedStyle(a,null),e=d.color,f=d.backgroundColor;c.setAttribute("style","color:"+e+";background:"+f),a.setAttribute("style","background-color:rgba(0,0,0,0);")}},img:function(a){var b=a.parentNode;if("i"!==b.tagName.toLowerCase()||!b.classList.contains("waves-effect")){var c=document.createElement("i");b.replaceChild(c,a),c.appendChild(a)}}},q={touches:0,allowEvent:function(a){var b=!0;return/^(mousedown|mousemove)$/.test(a.type)&&q.touches&&(b=!1),b},registerEvent:function(a){var b=a.type;"touchstart"===b?q.touches+=1:/^(touchend|touchcancel)$/.test(b)&&setTimeout(function(){q.touches&&(q.touches-=1)},500)}};return k.init=function(a){var b=document.body;a=a||{},"duration"in a&&(o.duration=a.duration),"delay"in a&&(o.delay=a.delay),n&&(b.addEventListener("touchstart",j,!1),b.addEventListener("touchcancel",q.registerEvent,!1),b.addEventListener("touchend",q.registerEvent,!1)),b.addEventListener("mousedown",j,!1)},k.attach=function(a,b){a=e(a),"[object Array]"===m.call(b)&&(b=b.join(" ")),b=b?" "+b:"";for(var c,d,f=0,g=a.length;g>f;f++)c=a[f],d=c.tagName.toLowerCase(),-1!==["input","img"].indexOf(d)&&(p[d](c),c=c.parentElement),-1===c.className.indexOf("waves-effect")&&(c.className+=" waves-effect"+b)},k.ripple=function(a,b){a=e(a);var c=a.length;if(b=b||{},b.wait=b.wait||0,b.position=b.position||null,c)for(var d,g,h,i={},j=0,k={type:"mousedown",button:1},l=function(a,b){return function(){o.hide(a,b)}};c>j;j++)if(d=a[j],g=b.position||{x:d.clientWidth/2,y:d.clientHeight/2},h=f(d),i.x=h.left+g.x,i.y=h.top+g.y,k.pageX=i.x,k.pageY=i.y,o.show(k,d),b.wait>=0&&null!==b.wait){var m={type:"mouseup",button:1};setTimeout(l(m,d),b.wait)}},k.calm=function(a){a=e(a);for(var b={type:"mouseup",button:1},c=0,d=a.length;d>c;c++)o.hide(b,a[c])},k.displayEffect=function(a){k.init(a)},k});function addcss(){} var MATERIALCSS = ""
 $.fn.hasAttr = function(a){var attr = $(this).attr(a);if (typeof attr !== typeof undefined && attr !== false) {return true}}
+!function(a,b,c){"undefined"!=typeof module&&module.exports?module.exports=c():a[b]=c()}(this,"res",function(){function b(){return Math.sqrt(screen.deviceXDPI*screen.deviceYDPI)/a.dpi}function c(){return"undefined"==typeof window?0:+window.devicePixelRatio||b()||0}function d(){return c()*a.dpcm}function e(){return c()*a.dpi}var a={dpi:96,dpcm:96/2.54};return{dppx:c,dpi:e,dpcm:d}});
 !function(){
 	"use strict";
+
+	var color = {
+		red: {
+			D50: "#ffebee",
+			D100: "#ffcdd2",
+			D200: "#ef9a9a",
+			D300: "#e57373",
+			D400: "#ef5350",
+			D500: "#f44336",
+			D600: "#e53935",
+			D700: "#d32f2f",
+			D800: "#c62828",
+			D900: "#b71c1c",
+			Da100: "#ff8a80",
+			Da200: "#ff5252",
+			Da400: "#ff1744",
+			Da700: "#d50000"
+		},
+		pink: {
+			D50: "#fce4ec",
+			D100: "#f8bbd0",
+			D200: "#f48fb1",
+			D300: "#f06292",
+			D400: "#ec407a",
+			D500: "#e91e63",
+			D600: "#d81b60",
+			D700: "#c2185b",
+			D800: "#ad1457",
+			D900: "#880e4f",
+			Da100: "#ff80ab",
+			Da200: "#ff4081",
+			Da400: "#f50057",
+			Da700: "#c51162"
+		},
+		purple: {
+			D50: "#f3e5f5",
+			D100: "#e1bee7",
+			D200: "#ce93d8",
+			D300: "#ba68c8",
+			D400: "#ab47bc",
+			D500: "#9c27b0",
+			D600: "#8e24aa",
+			D700: "#7b1fa2",
+			D800: "#6a1b9a",
+			D900: "#4a148c",
+			Da100: "#ea80fc",
+			Da200: "#e040fb",
+			Da400: "#d500f9",
+			Da700: "#aa00ff"
+		},
+		deeppurple: {
+			D50: "#ede7f6",
+			D100: "#d1c4e9",
+			D200: "#b39ddb",
+			D300: "#9575cd",
+			D400: "#7e57c2",
+			D500: "#673ab7",
+			D600: "#5e35b1",
+			D700: "#512da8",
+			D800: "#4527a0",
+			D900: "#311b92",
+			Da100: "#b388ff",
+			Da200: "#7c4dff",
+			Da400: "#651fff",
+			Da700: "#6200ea"
+		},
+		indigo: {
+			D50: "#e8eaf6",
+			D100: "#c5cae9",
+			D200: "#9fa8da",
+			D300: "#7986cb",
+			D400: "#5c6bc0",
+			D500: "#3f51b5",
+			D600: "#3949ab",
+			D700: "#303f9f",
+			D800: "#283593",
+			D900: "#1a237e",
+			Da100: "#8c9eff",
+			Da200: "#536dfe",
+			Da400: "#3d5afe",
+			Da700: "#304ffe"
+		},
+		blue: {
+			D50: "#e3f2fd",
+			D100: "#bbdefb",
+			D200: "#90caf9",
+			D300: "#64b5f6",
+			D400: "#42a5f5",
+			D500: "#2196f3",
+			D600: "#1e88e5",
+			D700: "#1976d2",
+			D800: "#1565c0",
+			D900: "#0d47a1",
+			Da100: "#82b1ff",
+			Da200: "#448aff",
+			Da400: "#2979ff",
+			Da700: "#2962ff"
+		},
+		lightblue: {
+			D50: "#e1f5fe",
+			D100: "#b3e5fc",
+			D200: "#81d4fa",
+			D300: "#4fc3f7",
+			D400: "#29b6f6",
+			D500: "#03a9f4",
+			D600: "#039be5",
+			D700: "#0288d1",
+			D800: "#0277bd",
+			D900: "#01579b",
+			Da100: "#80d8ff",
+			Da200: "#40c4ff",
+			Da400: "#00b0ff",
+			Da700: "#0091ea"
+		},
+		cyan: {
+			D50: "#e0f7fa",
+			D100: "#b2ebf2",
+			D200: "#80deea",
+			D300: "#4dd0e1",
+			D400: "#26c6da",
+			D500: "#00bcd4",
+			D600: "#00acc1",
+			D700: "#0097a7",
+			D800: "#00838f",
+			D900: "#006064",
+			Da100: "#84ffff",
+			Da200: "#18ffff",
+			Da400: "#00e5ff",
+			Da700: "#00b8d4"
+		},
+		teal: {
+			D50: "#e0f2f1",
+			D100: "#b2dfdb",
+			D200: "#80cbc4",
+			D300: "#4db6ac",
+			D400: "#26a69a",
+			D500: "#009688",
+			D600: "#00897b",
+			D700: "#00796b",
+			D800: "#00695c",
+			D900: "#004d40",
+			Da100: "#a7ffeb",
+			Da200: "#64ffda",
+			Da400: "#1de9b6",
+			Da700: "#00bfa5"
+		},
+		green: {
+			D50: "#e8f5e9",
+			D100: "#c8e6c9",
+			D200: "#a5d6a7",
+			D300: "#81c784",
+			D400: "#66bb6a",
+			D500: "#4caf50",
+			D600: "#43a047",
+			D700: "#388e3c",
+			D800: "#2e7d32",
+			D900: "#1b5e20",
+			Da100: "#b9f6ca",
+			Da200: "#69f0ae",
+			Da400: "#00e676",
+			Da700: "#00c853"
+		},
+		lightgreen: {
+			D50: "#f1f8e9",
+			D100: "#dcedc8",
+			D200: "#c5e1a5",
+			D300: "#aed581",
+			D400: "#9ccc65",
+			D500: "#8bc34a",
+			D600: "#7cb342",
+			D700: "#689f38",
+			D800: "#558b2f",
+			D900: "#33691e",
+			Da100: "#ccff90",
+			Da200: "#b2ff59",
+			Da400: "#76ff03",
+			Da700: "#64dd17"
+		},
+		lime: {
+			D50: "#f9fbe7",
+			D100: "#f0f4c3",
+			D200: "#e6ee9c",
+			D300: "#dce775",
+			D400: "#d4e157",
+			D500: "#cddc39",
+			D600: "#c0ca33",
+			D700: "#afb42b",
+			D800: "#9e9d24",
+			D900: "#827717",
+			Da100: "#f4ff81",
+			Da200: "#eeff41",
+			Da400: "#c6ff00",
+			Da700: "#aeea00"
+		},
+		yellow: {
+			D50: "#fffde7",
+			D100: "#fff9c4",
+			D200: "#fff59d",
+			D300: "#fff176",
+			D400: "#ffee58",
+			D500: "#ffeb3b",
+			D600: "#fdd835",
+			D700: "#fbc02d",
+			D800: "#f9a825",
+			D900: "#f57f17",
+			Da100: "#ffff8d",
+			Da200: "#ffff00",
+			Da400: "#ffea00",
+			Da700: "#ffd600"
+		},
+		amber: {
+			D50: "#fff8e1",
+			D100: "#ffecb3",
+			D200: "#ffe082",
+			D300: "#ffd54f",
+			D400: "#ffca28",
+			D500: "#ffc107",
+			D600: "#ffb300",
+			D700: "#ffa000",
+			D800: "#ff8f00",
+			D900: "#ff6f00",
+			Da100: "#ffe57f",
+			Da200: "#ffd740",
+			Da400: "#ffc400",
+			Da700: "#ffab00"
+		},
+		orange: {
+			D50: "#fff3e0",
+			D100: "#ffe0b2",
+			D200: "#ffcc80",
+			D300: "#ffb74d",
+			D400: "#ffa726",
+			D500: "#ff9800",
+			D600: "#fb8c00",
+			D700: "#f57c00",
+			D800: "#ef6c00",
+			D900: "#e65100",
+			Da100: "#ffd180",
+			Da200: "#ffab40",
+			Da400: "#ff9100",
+			Da700: "#ff6d00"
+		},
+		deeporange: {
+			D50: "#fbe9e7",
+			D100: "#ffccbc",
+			D200: "#ffab91",
+			D300: "#ff8a65",
+			D400: "#ff7043",
+			D500: "#ff5722",
+			D600: "#f4511e",
+			D700: "#e64a19",
+			D800: "#d84315",
+			D900: "#bf360c",
+			Da100: "#ff9e80",
+			Da200: "#ff6e40",
+			Da400: "#ff3d00",
+			Da700: "#dd2c00"
+		},
+		brown: {
+			D50: "#efebe9",
+			D100: "#d7ccc8",
+			D200: "#bcaaa4",
+			D300: "#a1887f",
+			D400: "#8d6e63",
+			D500: "#795548",
+			D600: "#6d4c41",
+			D700: "#5d4037",
+			D800: "#4e342e",
+			D900: "#3e2723"
+		},
+		grey: {
+			D50: "#fafafa",
+			D100: "#f5f5f5",
+			D200: "#eeeeee",
+			D300: "#e0e0e0",
+			D400: "#bdbdbd",
+			D500: "#9e9e9e",
+			D600: "#757575",
+			D700: "#616161",
+			D800: "#424242",
+			D900: "#212121"
+		},
+		steel: {
+			D50: "#eceff1",
+			D100: "#cfd8dc",
+			D200: "#b0bec5",
+			D300: "#90a4ae",
+			D400: "#78909c",
+			D500: "#607d8b",
+			D600: "#546e7a",
+			D700: "#455a64",
+			D800: "#37474f",
+			D900: "#263238"
+		}
+	};
 	
 	var MATERIALCSS = ""
 	addcss(MATERIALCSS);
@@ -25,93 +321,24 @@ $.fn.hasAttr = function(a){var attr = $(this).attr(a);if (typeof attr !== typeof
 		}
 	}
 	function getMDColor(p){
-		switch(p){
-			case ".red": {
-				p = "#f7412c";
-				break;
-			}
-			case ".pink": {
-				p = "#eb1460";
-				break;
-			}
-			case ".purple": {
-				p = "#9c1ab1";
-				break;
-			}
-			case ".deep-purple": {
-				p = "#6633b9";
-				break;
-			}
-			case ".indigo": {
-				p = "#3e50b4";
-				break;
-			}
-			case ".blue": {
-				p = "#2095f2";
-				break;
-			}
-			case ".light-blue": {
-				p = "#02a8f4";
-				break;
-			}
-			case ".cyan": {
-				p = "#01bbd4";
-				break;
-			}
-			case ".teal": {
-				p = "#019587";
-				break;
-			}
-			case ".sea-green":{
-				p = "#18ffff";
-				break;
-			}
-			case ".green": {
-				p = "#4baf4f";
-				break;
-			}
-			case ".light-green": {
-				p = "#8baf4f";
-				break;
-			}
-			case ".lime": {
-				p = "#ccdb38";
-				break;
-			}
-			case ".yellow": {
-				p = "#efec16";
-				break;
-			}
-			case ".amber": {
-				p = "#fec107";
-				break;
-			}
-			case ".orange": {
-				p = "#ff9800";
-				break;
-			}
-			case ".deep-orange": {
-				p = "#ff5500";
-				break;
-			}
-			case ".brown": {
-				p = "#7a5545";
-				break;
-			}
-			case ".grey": {
-				p = "#b9b9b9";
-				break;
-			}
-			case ".steel": {
-				p = "#607d8d";
-				break;
-			}
-			default :{
-				p = p
-				break;
-			}
+		var d = p.split(":")[1]
+		p = p.split(":")[0].toLowerCase()
+		
+		if(!d){
+			d = "500"
 		}
-		return p 
+		d = "D" + d.toLowerCase()
+		
+		var q
+		
+		if(p.includes("#")){
+			q = p
+		} else {
+			q = eval("color." + p + "." + d);
+		}
+		
+		
+		return q
 	}
 	$(document).ready(function(){
 		$("head").append('<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">')
@@ -391,12 +618,10 @@ $.fn.hasAttr = function(a){var attr = $(this).attr(a);if (typeof attr !== typeof
 			setTimeout(function(){
 				$(".md-rippleBubble").remove();
 			},350)
-		})
+		});
+		
 		$("input[type='switch']").each(function(){
 			var c = $(this).attr("color");
-			if(!c){
-				c = $(this).css("background-color")
-			}
 			
 			var f = $(this).attr("checked")
 			if(f){
@@ -464,16 +689,17 @@ $.fn.hasAttr = function(a){var attr = $(this).attr(a);if (typeof attr !== typeof
 						backgroundColor:c
 					}, 150);
 					
-					c = hexToRgb(c)
-					var r = c.r;
-					var g = c.g;
-					var b = c.b;
+					var r = hexToR(c);
+					var g = hexToG(c);
+					var b = hexToB(c);
+					var c = "rgb(" + r + "," + g + "," + b + ")"
+					
 					var k = 60;
 					var light = mdMax(r+k,255) + "," + mdMax(g+k,255) + "," + mdMax(b+k,255)
 					light = "rgb(" + light + ")"
 					
 					track.animate({
-						backgroundColor: light
+						backgroundColor:light
 					}, 150)
 				} else {
 					e.attr("switched", "undefined");
@@ -637,45 +863,49 @@ $.fn.hasAttr = function(a){var attr = $(this).attr(a);if (typeof attr !== typeof
 			$(this).wrap("<span></span>");
 			
 			$(this).after("<div class='md-coloropen'></div>")
+		}).change(function(){
+			var c = $(this).val()
+			$(this).siblings(".md-coloropen").css("background-color", c)
 		})
 		
 		$(".md-coloropen").click(function(){
 				var dvi = '<div class="md-popup md-colorpicker">\
 			<span class="md-popupTitle">Select a Color :</span>\
 				<div class="md-content">\
-					<div class="md-colorblob" color=".red"></div>\
-					<div class="md-colorblob" color=".pink"></div>\
-					<div class="md-colorblob" color=".purple"></div>\
-					<div class="md-colorblob" color=".deep-purple"></div>\
-					<div class="md-colorblob" color=".indigo"></div>\
-					<div class="md-colorblob" color=".green"></div>\
-					<div class="md-colorblob" color=".teal"></div>\
-					<div class="md-colorblob" color=".cyan"></div>\
-					<div class="md-colorblob" color=".light-blue"></div>\
-					<div class="md-colorblob" color=".blue"></div>\
-					<div class="md-colorblob" color=".light-green"></div>\
-					<div class="md-colorblob" color=".lime"></div>\
-					<div class="md-colorblob" color=".yellow"></div>\
-					<div class="md-colorblob" color=".amber"></div>\
-					<div class="md-colorblob" color=".orange"></div>\
+					<div class="md-colorblob" color="red"></div>\
+					<div class="md-colorblob" color="pink"></div>\
+					<div class="md-colorblob" color="purple"></div>\
+					<div class="md-colorblob" color="deepPurple"></div>\
+					<div class="md-colorblob" color="indigo"></div>\
+					<div class="md-colorblob" color="green"></div>\
+					<div class="md-colorblob" color="teal"></div>\
+					<div class="md-colorblob" color="cyan"></div>\
+					<div class="md-colorblob" color="lightBlue"></div>\
+					<div class="md-colorblob" color="blue"></div>\
+					<div class="md-colorblob" color="lightGreen"></div>\
+					<div class="md-colorblob" color="lime"></div>\
+					<div class="md-colorblob" color="yellow"></div>\
+					<div class="md-colorblob" color="amber"></div>\
+					<div class="md-colorblob" color="orange"></div>\
 					<div class="md-colorblob md-other"></div>\
-					<div class="md-colorblob" color=".steel"></div>\
-					<div class="md-colorblob" color=".grey"></div>\
-					<div class="md-colorblob" color=".brown"></div>\
-					<div class="md-colorblob" color=".deep-orange"></div>\
+					<div class="md-colorblob" color="steel"></div>\
+					<div class="md-colorblob" color="grey"></div>\
+					<div class="md-colorblob" color="brown"></div>\
+					<div class="md-colorblob" color="deepOrange"></div>\
 					<div class="md-check"><i class="material-icons">&#xE5CA;</i></div>\
 				</div>\
 				<div class="md-opts">\
 					<button md-flat style="color:#607d8d" onclick="$(this).parent().parent().fadeOut(200, function(){$(this).remove()})">Cancel</button>\
-					<button md-flat style="color:#607d8d" onclick="$(this).parent().parent().fadeOut(200, function(){$(this).remove()}); getCPVal(this)" >OK</button>\
+					<button md-flat style="color:#607d8d" onclick="$(this).parent().parent().fadeOut(200, function(){$(this).remove()}); GETDCOLORPICKERVALUE(this);">OK</button>\
 				</div>\
+				<button md-flat style="color:#607d8d;bottom:16px;left:16px; position:absolute;" onclick="$(this).parent().fadeOut(200, function(){$(this).remove()}); $(this).parent().siblings(&quot;input&quot;).click()">CUSTOM</button>\
 			</div>'
 				
 			$(".md-popup").remove()
 			$(this).after(dvi);
 			$(".md-popup").fadeIn(200)
 			
-			$(".md-colorblob").each(function(){
+			$(".md-colorblob:not(.md-other)").each(function(){
 				var c = $(this).attr("color");
 				c = getMDColor(c);
 				$(this).css({
@@ -690,10 +920,12 @@ $.fn.hasAttr = function(a){var attr = $(this).attr(a);if (typeof attr !== typeof
 				q.removeAttr("checked")
 				
 				$(this).attr("checked", "true")
+			
+				var l = $(this).position().left + screen.width%100*1.1686
+				var t = $(this).position().top + screen.height%100*1.314
 				
-				var l = $(this).offset().left - 388
-				var t = $(this).offset().top - 173
-				
+				//alert(screen.width%100%397 + 10 + "," + l)
+
 				k.fadeOut(200, function(){
 					$(this).css({
 						left:l,
@@ -702,14 +934,23 @@ $.fn.hasAttr = function(a){var attr = $(this).attr(a);if (typeof attr !== typeof
 				});
 			})
 		})
+		Material.init({
+			
+		})
 	});
 }();
-function getCPVal(d){
-	d = $(d);
-	var p = d.parent().siblings(".md-content").children("[checked]").attr("color");
-	switch(p){case".red":p="#f7412c";break;case".pink":p="#eb1460";break;case".purple":p="#9c1ab1";break;case".deep-purple":p="#6633b9";break;case".indigo":p="#3e50b4";break;case".blue":p="#2095f2";break;case".light-blue":p="#02a8f4";break;case".cyan":p="#01bbd4";break;case".teal":p="#019587";break;case".sea-green":p="#18ffff";break;case".green":p="#4baf4f";break;case".light-green":p="#8baf4f";break;case".lime":p="#ccdb38";break;case".yellow":p="#efec16";break;case".amber":p="#fec107";break;case".orange":p="#ff9800";break;case".deep-orange":p="#ff5500";break;case".brown":p="#7a5545";break;case".grey":p="#b9b9b9";break;case".steel":p="#607d8d"}
+function GETDCOLORPICKERVALUE(p){
+	var e = $(p).parent().siblings(".md-content").children("[checked]").attr("color")
 
-	d.parent().parent().siblings("input").attr("value", p);
-	d.parent().parent().siblings(".md-coloropen").css("background-color", p);
+	switch(e){case"red":e="#f7412c";break;case"pink":e="#eb1460";break;case"purple":e="#9c1ab1";break;case"deepPurple":e="#6633b9";break;case"indigo":e="#3e50b4";break;case"blue":e="#2095f2";break;case"lightBlue":e="#02a8f4";break;case"cyan":e="#01bbd4";break;case"teal":e="#019587";break;case"green":e="#4baf4f";break;case"lightGreen":e="#8baf4f";break;case"lime":e="#ccdb38";break;case"yellow":e="#efec16";break;case"amber":e="#fec107";break;case"orange":e="#ff9800";break;case"deepOrange":e="#ff5500";break;case"brown":e="#7a5545";break;case"grey":e="#b9b9b9";break;case"steel":e="#607d8d";break;}
 	
+	$(p).parent().parent().siblings("input").attr("value", e)
+	$(p).parent().parent().siblings(".md-coloropen").css("background-color", e)
+	
+	//$(this).parent().parent().siblings("input").click()
+}
+Material = {
+	init: function(o){
+		
+	}
 }
