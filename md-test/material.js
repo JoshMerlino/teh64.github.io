@@ -11,7 +11,6 @@ $.fn.hasAttr = function(a){var attr = $(this).attr(a);if (typeof attr !== typeof
 !function(a,b,c){"undefined"!=typeof module&&module.exports?module.exports=c():a[b]=c()}(this,"res",function(){function b(){return Math.sqrt(screen.deviceXDPI*screen.deviceYDPI)/a.dpi}function c(){return"undefined"==typeof window?0:+window.devicePixelRatio||b()||0}function d(){return c()*a.dpcm}function e(){return c()*a.dpi}var a={dpi:96,dpcm:96/2.54};return{dppx:c,dpi:e,dpcm:d}});
 !function(){
 	"use strict";
-
 	var color = {
 		red: {
 			D50: "#ffebee",
@@ -342,6 +341,10 @@ $.fn.hasAttr = function(a){var attr = $(this).attr(a);if (typeof attr !== typeof
 	}
 	$(document).ready(function(){
 		$("head").append('<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">')
+		
+		$("body").append("<div class='md-1cm'></div>");
+		var SCREENDPI = Math.round($(".md-1cm").width() * 2.54);
+		$(".md-1cm").remove()
 		
 		$("[color]").each(function(){
 			var p = $(this).attr("color")
@@ -921,8 +924,8 @@ $.fn.hasAttr = function(a){var attr = $(this).attr(a);if (typeof attr !== typeof
 				
 				$(this).attr("checked", "true")
 			
-				var l = $(this).position().left + screen.width%100*1.1686
-				var t = $(this).position().top + screen.height%100*1.314
+				var l = $(this).position().left + (screen.width%100*1.1686) / 96 * SCREENDPI
+				var t = $(this).position().top + (screen.height%100*1.314) / 96 * SCREENDPI
 				
 				//alert(screen.width%100%397 + 10 + "," + l)
 
