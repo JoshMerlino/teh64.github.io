@@ -1,19 +1,32 @@
 <html>
     <head>
-        <script src="material.js"></script>
+		
+		<!-- <script src="Versions/material.auto.min.js"></script> -->
+			
+	
+		<script src="lib.js"></script>
+		<script src="material.js"></script> 
 	    <link rel="stylesheet" href="material.css"/>
 		
 		<style>	
 			body {
-				background: url(http://www.topofandroid.com/wp-content/uploads/2015/05/Android-L-Material-Design-Wallpapers-5.png)
+				background: #212121;
 			}
 		</style>
+		
 		<script>
+			
+			$(document).ready(function(){
+				$('button').click(function() {
+					Material.notify("Ho", 2000)
+				});
+			})
 			
 		</script>
     </head>
     <body>
-		<input type="color"/>
-		
-   </body>
+
+		<button color="red" tooltip="Click Me!!">Button</button>
+	
+    </body>
 </html>
