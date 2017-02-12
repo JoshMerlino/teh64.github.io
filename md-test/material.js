@@ -192,7 +192,11 @@ Material = {
 		
 		var r = "md-" + Math.random().toString().split(".")[1];
 	
-		if(!window.mobilecheck){
+		var m = window.mobilecheck()
+	
+		alert(m)
+	
+		if(!m){
 			if(!o.action){
 	
 				$(".md-snackbar-wrap").append("<div class='md-snackbar " + r + "'>" + o.message + "</div>");
