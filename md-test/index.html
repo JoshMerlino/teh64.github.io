@@ -1,11 +1,11 @@
 <html>
     <head>
 		
-		<!-- <script src="Versions/material.auto.min.js"></script> -->
+		<!-- <script src="Repository/material.auto.min.js"></script> -->
 			
 	
 		<script src="lib.js"></script>
-		<script src="material.js"></script> 
+		<script src="material.js"></script>
 	    <link rel="stylesheet" href="material.css"/>
 		
 		<style>	
@@ -16,17 +16,25 @@
 		
 		<script>
 			
-			$(document).ready(function(){
-				$('button').click(function() {
-					Material.notify("Ho", 2000)
-				});
+			Material.init({
+				
 			})
-			
+		
+			function showSampleToast(){
+				Material.snackbar({
+					message:'Archived',
+					delay:9999,
+					action:"undo",
+					actionClick:function(){
+						alert("undo")
+					},
+					actionColor:"yellow"
+				});
+			}
+		
 		</script>
     </head>
     <body>
-
-		<button color="red" tooltip="Click Me!!">Button</button>
-	
-    </body>
+		<button color='red' style='position:absolute;left:500px;' onclick="showSampleToast()" id="hi">Show Material Snackbar</button>
+	</body>
 </html>
