@@ -920,7 +920,7 @@ p:not([md='false']) {
 	right:150px;
 	cursor:pointer;
 }
-.md-snackbar-moble {
+.md-snackbar-mobile {
 	position:fixed;
 	bottom:0px;
 	left:0px;
