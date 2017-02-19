@@ -2945,22 +2945,19 @@ Material.run = function() {
 		})
 		
 		$(".md-popup.md-finger").each(function(){
+			var cjs = new ClientJS();
+			var p = $(this);
 			
-			var p = $(this)
+			if(cjs.isMobile){
+				r = true
+			}
 			
-			new Fingerprint2().get(function(r){
-				
-				console.log(r)
-				
-				p.children(".md-before").fadeOut(200)
-					
-				if(r != "b6eb74a61a55c03549b2cb897c724048"){
-					p.children(".md-after").delay(200).fadeIn(200)
-				} else {
-					p.children(".md-notouch").delay(200).fadeIn(200)
-				}
-				
-			});
+			p.children(".md-before").fadeOut(200)		
+			if(!r){
+				p.children(".md-after").delay(200).fadeIn(200)
+			} else {
+				p.children(".md-notouch").delay(200).fadeIn(200)
+			}
 		})
 		
     })
