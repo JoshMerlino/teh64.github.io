@@ -18,6 +18,39 @@
     $.mousedown = function() {
         return mousedown
     }
+
+	$.fn.multiline = function(o){
+		var u = 1;
+		var w = this.height()
+		var f = this.height()
+		
+		this.on("input paste", function(e){
+			p = $(this);
+
+			var l = p.val().split("\n").length;
+			
+			console.log(l)
+			
+			if(u < l){
+				w = w + parseFloat(p.css("font-size")) + 4;
+				p.height(w)
+			} else if (u > l){
+				w = w - parseFloat(p.css("font-size")) - 4;
+				p.height(w)
+			} else if (l == 1){
+				p.height(f)
+			}
+			
+
+			u = l;
+			
+			p.click().focus()
+			
+		})
+		
+		return this;
+	}
+	
 }($));
 
 function GETMDDATEPICKERVALUE(p) {
@@ -130,7 +163,8 @@ Material = {
                 context: false,
                 scrollbars: true,
                 nowaves: false,
-                detahced: []
+                detahced: [],
+				selectionColor:"#c1c1c1"
             }
             o = $.extend(b,o);
 
@@ -148,105 +182,19 @@ Material = {
                     $(v).attr("md", "false")
                 })
             }
+			
+			var se = Material.getColor(o.selectionColor);
+			var su = Material.color.textcolor(se);
+			
+			if(su != "#FFF"){
+				su = "#000"
+			}
+			
+			q += "::selection {background-color: " + se + ";color:" + su + "}"
             addcss(q)
-        })
-    },
-    toast: function(o) {
-		var b = {
-            delay:5000
-        }
-        o = $.extend(b,o);
+        });
 		
-		var r = "md-" + Math.random().toString().split(".")[1];
-	
-		if(!o.action){
-	
-			$(".md-toast-left").append("<div class='md-toast " + r + "'>" + o.message + "</div>");
-			var e = $(".md-toast." + r);
-					
-			e.effect("slide", {
-				direction:"left"
-			})
-		
-		} else {
-			
-			var c = Material.getColor(o.actionColor)
-			
-			$(".md-toast-left").append("<div class='md-toast " + r + "'>" + o.message + "<div style='color:" + c + ";text-transform:uppercase;'>" + o.action + "</div></div>");
-			var e = $(".md-toast." + r);
-			
-			e.children("div").click(o.actionClick)
-			
-			e.fadeIn(200)
-			
-		}
-		setTimeout(function(){
-			e.fadeOut(250)
-		},o.delay)
-    },
-	snackbar: function(o) {
-		var b = {
-            delay:5000
-        }
-        o = $.extend(b,o);
-		
-		var r = "md-" + Math.random().toString().split(".")[1];
-	
-		var m = window.mobilecheck()
-	
-		alert(m)
-	
-		if(!m){
-			if(!o.action){
-	
-				$(".md-snackbar-wrap").append("<div class='md-snackbar " + r + "'>" + o.message + "</div>");
-				var e = $(".md-snackbar." + r);
-						
-				e.effect("slide", {
-					direction:"left"
-				})
-			
-			} else {
-				
-				var c = Material.getColor(o.actionColor)
-				
-				$(".md-snackbar-wrap").append("<div class='md-snackbar " + r + "'>" + o.message + "<div style='color:" + c + ";text-transform:uppercase;'>" + o.action + "</div></div>");
-				var e = $(".md-snackbar." + r);
-				
-				e.children("div").click(o.actionClick)
-				
-				e.fadeIn(200)
-				
-			}
-			setTimeout(function(){
-				e.fadeOut(250)
-			},o.delay)
-		} else {
-			if(!o.action){
-	
-				$(".md-snackbar-mobile").append("<div class='md-snackbar " + r + "'>" + o.message + "</div>");
-				var e = $(".md-snackbar." + r);
-						
-				e.effect("slide", {
-					direction:"left"
-				})
-			
-			} else {
-				
-				var c = Material.getColor(o.actionColor)
-				
-				$(".md-snackbar-wrap").append("<div class='md-snackbar " + r + "'>" + o.message + "<div style='color:" + c + ";text-transform:uppercase;'>" + o.action + "</div></div>");
-				var e = $(".md-snackbar." + r);
-				
-				e.children("div").click(o.actionClick)
-				
-				e.fadeIn(200)
-				
-			}
-			setTimeout(function(){
-				e.fadeOut(250)
-			},o.delay)
-		}
+		return Material
     },
     appBar: function(o) {
         var c = o.color;
@@ -614,13 +562,16 @@ Material = {
     dialog: function(o) {
         switch (o.type.toLowerCase()) {
             default: {
-                var dvi = "<div class='md-popup md-alert'><div class='md-title'>" + o.title + "</div><div class='md-content'>" + o.msg + "</div><div class='md-options'><button md-flat color='steel' onclick='$(this).parent().parent().fadeOut(200, function(){$(this).remove()})'>OK</button></div></div>"
+                var dvi = "<div class='md-popup md-alert'><div class='md-title'>" + o.title + "</div><div class='md-content'>" + o.msg + "</div><div class='md-options'><button md-flat color='steel' onclick='$(this).parent().parent().fadeOut(200, function(){$(this).remove()}); Waves.ripple(this)'>OK</button></div></div>"
 
                 $(".md-popup").remove()
                 $("body").append(dvi)
                 $(".md-popup").css({
                     display: "none"
                 }).fadeIn(200)
+				
+				var i = $(".md-popup").children(".md-options").children("button");
+				Waves.attach(i, "waves-fab-dark")
                 break;
             }
         }
@@ -689,6 +640,13 @@ $(function() {
 })
 Material.run = function() {
 
+	function hSize(size) {
+		var units = ['bytes', 'KB', 'MB', 'GB', 'TB', 'PB'];
+		var ord = Math.floor(Math.log(size) / Math.log(1024));
+		ord = Math.min(Math.max(0, ord), units.length - 1);
+		var s = Math.round((size / Math.pow(1024, ord)) * 100) / 100;
+		return s + ' ' + units[ord];
+	}
 	function ctx(d) {
         $(".md-ctx .md-option.md-ds").click(function() {
             var sc = $(this).children("div").text();
@@ -1763,13 +1721,23 @@ Material.run = function() {
                 c = "#c1c1c1"
             }
 
+			$(this).animate({
+				width:"14px",
+				height:"14px",
+				margin:"10px"
+			}, 100).animate({
+				width:"18px",
+				height:"18px",
+				margin:"8px"
+			}, 100)
+			
             if (!$(this)[0].checked) {
                 c = "#aaa";
             } else {
+			
+                $(this).delay().after("<div style='user-select:none;'><div class='md-biezer'></div><i class='material-icons' style='position:relative;font-weight:900;color:" + uc + ";cursor:pointer;'>&#xE5CA;</i></div>");
 
-                $(this).after("<div style='user-select:none;'><i class='material-icons' style='font-weight:900;color:" + uc + ";cursor:pointer;font-size:18px'>&#xE5CA;</i></div>");
-
-                $(this).next("div").css({
+                $(this).next("div").delay(100).css({
                     position: "absolute",
                     width: "18px",
                     height: "18px",
@@ -1782,12 +1750,16 @@ Material.run = function() {
                     textAlign: "center",
                     lineHeight: "18px",
                     verticalAlign: "middle",
-                    fontSize: "2px"
-                }).fadeIn(100).animate({
-                    fontSize: "18px"
-                })
-            }
+					boxShadow:"inset "
+                }).fadeIn(200).children("i").css({
+					display:"none",
+					fontSize:"18px"
+				}).delay(150).toggle("blind", {
+					direction:"down"
+				}).delay(2000).sibs("div").remove();
+				
 
+            }
 
             $(this).next("div").click(function() {
                 $(this).fadeOut(100, function() {
@@ -1802,10 +1774,9 @@ Material.run = function() {
                 backgroundColor: c
             })
 
-
             setTimeout(function() {
                 $(".md-rippleBubble").remove();
-            }, 350)
+            }, 400)
         })
         $("input[type='checkbox']:not([md='false'])").each(function() {
             $(this).wrap("<span style='display:inline-block'></span>")
@@ -1827,7 +1798,7 @@ Material.run = function() {
                 c = "#aaa";
             } else {
 
-                $(this).after("<div style='user-select:none;'><i class='material-icons' style='font-weight:900;color:" + uc + ";cursor:pointer;font-size:18px'>&#xE5CA;</i></div>");
+                $(this).after("<div style='user-select:none;'><i class='material-icons' style='display:none;font-weight:900;color:" + uc + ";cursor:pointer;font-size:2px'>&#xE5CA;</i></div>");
 
                 $(this).next("div").css({
                     position: "absolute",
@@ -1838,12 +1809,12 @@ Material.run = function() {
                     backgroundColor: c,
                     top: dt,
                     left: dl,
-                    display: "none",
                     textAlign: "center",
                     lineHeight: "18px",
                     verticalAlign: "middle",
-                    fontSize: "2px"
-                }).fadeIn(100).animate({
+                    fontSize: "2px",
+					display:"none"
+                }).fadeIn(200).animate({
                     fontSize: "18px"
                 })
             }
@@ -1863,11 +1834,13 @@ Material.run = function() {
 
             setTimeout(function() {
                 $(".md-rippleBubble").remove();
-            }, 350)
+            }, 400)
+			
+			
         })
-        $("input[type='radio']:not([md-fly='true']):not([md='false'])").click(function() {
+        $("input[type='radio']:not([fly='true']):not([md='false'])").click(function() {
 
-            $(this).next("div").fadeOut(100)
+            $(this).next("div").toggle("scale", 100)
 
             var l = $(this).offset().left + 7
             var t = $(this).offset().top + 7
@@ -1878,13 +1851,14 @@ Material.run = function() {
             $(this).after("<span class='md-rippleBubble'></span>")
 
             var n = $(this).attr("name")
-            n = $("input[name='" + n + "']")
-            n.next("div").css({
+            n = $("input[name='" + n + "']");
+			
+            n.next("div").animate({
                 width: "0px",
                 height: "0px",
-                left: l + 2,
-                top: t + 2
-            }, 500).prev().animate({
+                left:"+=5px",
+                top:"+=5px"
+            }, 200).prev().animate({
                 borderColor: "#c1c1c1"
             }, 200)
 
@@ -1944,7 +1918,7 @@ Material.run = function() {
 
             setTimeout(function() {
                 $(".md-rippleBubble").remove();
-            }, 350)
+            }, 400)
         });
 
         $("input[type='radio']:not([md='false'])").click(function() {
@@ -2026,7 +2000,7 @@ Material.run = function() {
 
             setTimeout(function() {
                 $(".md-rippleBubble").remove();
-            }, 350)
+            }, 400)
         });
 
         $("input[type='switch']:not([md='false'])").each(function() {
@@ -2097,18 +2071,10 @@ Material.run = function() {
                         left: l,
                         backgroundColor: c
                     }, 150);
-
-                    var r = hexToR(c);
-                    var g = hexToG(c);
-                    var b = hexToB(c);
-                    var c = "rgb(" + r + "," + g + "," + b + ")"
-
-                    var k = 60;
-                    var light = mdMax(r + k, 255) + "," + mdMax(g + k, 255) + "," + mdMax(b + k, 255)
-                    light = "rgb(" + light + ")"
-
+					
                     track.animate({
-                        backgroundColor: light
+                        backgroundColor: c,
+						opacity:"0.36"
                     }, 150)
                 } else {
                     e.attr("switched", "undefined");
@@ -2169,96 +2135,6 @@ Material.run = function() {
                 backgroundColor: e
             })
         })
-        $("input[type='text']:not([md='false'])").each(function() {
-            $(this).wrap("<span></span>")
-
-            var c = $(this).attr("color")
-
-            var p = $(this).attr("placeholder");
-            $(this).attr('placeholder', "");
-            
-            if (typeof p == "undefined") {
-                p = " "
-            }
-           
-
-            $(this).after("<span class='md-input md-placeholder'>" + p + "</span>");
-           
-
-            var x = $(this).offset().left;
-            var y = $(this).offset().top;
-
-            $(this).siblings(".md-input.md-placeholder").css({
-                left: x,
-                top: y
-            }).click(function() {
-                $(this).siblings("input").click()
-                $(this).siblings("input").focus()
-            })
-
-        }).click(function(e) {
-
-            var c = $(this).attr("color")
-            var x = e.pageX;
-            var t = $(this).offset().top + 30;
-            var d = $(this).offset().left
-            var w = $(this).width();
-
-            $(this).siblings(".md-bar").remove();
-
-            $(this).after("<div class='md-input md-bar'></div>");
-
-            var q = $(this).siblings(".md-bar");
-
-            q.css({
-                left: x,
-                top: t,
-                backgroundColor: c
-            }).animate({
-                left: d,
-                width: w
-            }, 200)
-
-            var pc = $(this).siblings(".md-input.md-placeholder");
-
-            var t = $(this).offset().top - 22
-
-            if ($(this).val().length == 0) {
-
-                pc.animate({
-                    color: c,
-                    top: t,
-                    fontSize: "14px"
-                }, 200)
-            } else {
-                pc.animate({
-                    color: c
-                }, 200)
-            }
-
-        }).blur(function() {
-            var l = $(this).width() / 2 + $(this).offset().left
-            $(this).siblings(".md-bar").animate({
-                width: "0px",
-                left: l
-            }, 200)
-
-            var pc = $(this).siblings(".md-input.md-placeholder");
-            var t = $(this).offset().top
-
-            if ($(this).val().length == 0) {
-
-                pc.animate({
-                    color: "#c1c1c1",
-                    top: t,
-                    fontSize: "18px"
-                }, 200)
-            } else {
-                pc.animate({
-                    color: "#c1c1c1"
-                }, 200)
-            }
-        });
 		
         $('input[type="color"]:not([md="false"])').each(function() {
             $(this).wrap("<span></span>");
@@ -2409,36 +2285,31 @@ Material.run = function() {
             var r = "md-tooltip-" + Math.random().toString().split(".")[1];
             $(this).addClass(r);
 
+			var ef = "blind"
+			
             $(this).hover(function() {
                 $("body").append("<div class='md-tooltip " + r + "'>" + v + "</div>");
 
                 var t = $(".md-tooltip." + r);
 
-                var ce = ($(this).width() - t.width()) / 2
+                var ce = ($(this).width()/2 + 7) - t.width()/2
 
-                var x = $(this).offset().left - ce + 3
+                var x = $(this).offset().left + ce
                 var y = $(this).offset().top + $(this).height() + 8
-
-                if (x < 0) {
-                    x = 8
-                }
-                if (x > screen.width - t.width()) {
-                    x = screen.width - t.width() - 20
-                }
 
                 t.css({
                     top: y,
                     left: x
-                })
-
-                t.fadeIn(200);
+                }).toggle(ef,{
+					direction:"down"
+				}, 200);
 
 
 
             }, function() {
                 var t = $(".md-tooltip." + r);
 
-                t.fadeOut(200, function() {
+                t.toggle(ef, 200, function() {
 
                     t.remove();
 
@@ -2500,7 +2371,8 @@ Material.run = function() {
                 qh = qh * .85 - 6
 
                 p.children("input").val(qh)
-                p.children("input").attr("value", qh)
+                p.children("input").attr("value", qh);
+				
             }
 
             ball.on("drag", function(e) {
@@ -2534,7 +2406,7 @@ Material.run = function() {
 
         });
 
-        $("a:not([md='false']):not([href*='#'])").each(function() {
+        $("a:not([md='false']):not([href*='#']):not([href][download])").each(function() {
 
             var c = $(this).attr("color");
 
@@ -2570,7 +2442,7 @@ Material.run = function() {
                 }, 200)
             })
         });
-		$("a[href*='#']:not([md='false']):not([href='#'])").each(function(){
+		$("a[href*='#']:not([md='false']):not([href='#']):not([href][download])").each(function(){
 			var c = $(this).attr("color");
 			if(!c){
 				c = $(this).css("color")
@@ -2604,6 +2476,17 @@ Material.run = function() {
                 $("body").append(dvi);
 
                 var h = $(".md-ctx");
+				
+				if(e.pageX <= screen.width){
+					h.css({
+						left:e.pageX
+					})
+				} else {
+					h.css({
+						right:e.pageX
+					})
+				}
+				
                 h.fadeIn(200).noclick(function() {
                     h.fadeOut(200, function() {
                         h.remove();
@@ -2612,7 +2495,7 @@ Material.run = function() {
                 ctx(t)
             }
         })
-		$('a[href*="#"]:not([href="#"])').click(function() {
+		$('a[href*="#"]:not([href="#"]):not([href][download])').click(function() {
 			var mdclass = $("body")
 			if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
 				var target = $(this.hash);
@@ -2639,5 +2522,446 @@ Material.run = function() {
 		})
 		
 		$(".md-input.md-placeholder").click().siblings("input").blur();
+		
+		$("dropdown:not([md='false'])").each(function(){
+			
+			var ef = "blind"
+			
+			$(this).wrap("<span class='md-dropdown-wrap'></span>");
+			
+			var zi = parseInt($(this).css("z-index")) + 1
+			if(!zi){
+				zi = "1"
+			}
+			
+			var ch = "<div class='md-opts'>" + $(this).html().replaceAll("disabled", "").replaceAll("<option>", "<div class='md-option'>").replaceAll("</option>", "</div>") + "</div>"
+			
+			var c = $(this).attr("color")
+			$(this).after("<div class='md-dropdown'></div>")
+			
+			$(this).after(ch)
+			
+			var o = $(this).siblings(".md-opts")
+			
+			var p = $(this).attr("placeholder");
+			if(!p){
+				p = $(this).html().split(">")[1].split("<")[0];
+			}
+			var b = $(this).siblings(".md-dropdown");
+			b.css({
+				backgroundColor:c,
+				color:textcolor(p)
+			})
+			b.text(p)
+			
+			if(textcolor(c) == "#FFF"){
+				Waves.attach(b, "waves-fab-light")
+			} else {
+				Waves.attach(b, "waves-fab-dark")
+			}
+			
+			var w = b.width() * 1.42
+			
+			o.css({
+				zIndex:zi,
+				minWidth:w,
+				maxHeight:screen.height/2
+			})
+			
+			
+			Waves.attachColor(o.children(), c)
+			
+			b.click(function(e){
+				
+				e.stopPropagation();
+				
+				o.animate({
+					opacity:"1"
+				}).dequeue().toggle(ef)
+			})
+			
+			o.children().click(function(){
+				if(!$(this).hasClass("md-none")){
+					var t = $(this).text();
+				
+					$(this).parent().siblings(".md-dropdown").siblings("dropdown").attr("value", p);
+					
+					$(this).parent().animate({
+						opacity:"0"
+					}).dequeue().toggle(ef)
+				} else {
+					$(this).parent().siblings(".md-dropdown").siblings("dropdown").attr("value", p);
+					
+					$(this).parent().animate({
+						opacity:"0"
+					}).dequeue().toggle(ef)
+				}
+			}).noclick(function(){
+				
+				if(o.css("display") != "none"){
+					o.animate({
+						opacity:"0"
+					}).dequeue().toggle(ef)
+				}
+			})
+		})
+		$("input[type='gsearch']").each(function(){
+			var c = $(this).attr("color");
+			$(this).wrap("<span class='md-gsearch'></span>")
+			$(this).after("<i style='color:" + c +"' class='mdi'>&#xE8B6;</i>")
+			
+			$(this).siblings(".mdi").click(function(){
+				
+				var v = $(this).siblings("input").val();
+				var url = "https://www.google.com/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q="+v;
+			
+				window.open(url)
+			})
+			
+		}).keypress(function(e){
+			
+			var v = $(this).val();
+			
+			var url = "https://www.google.com/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q="+v
+			
+			if(e.which == 13){
+				window.open(url)
+			}
+		})
+		
+		$("input[type='text']:not([md='false']), input[type='password']:not([md='false'])").each(function() {
+            $(this).wrap("<span></span>")
+
+            var c = $(this).attr("color")
+
+            var p = $(this).attr("placeholder");
+            $(this).attr('placeholder', "");
+            
+            if (typeof p == "undefined") {
+                p = " "
+            }
+           
+			var j = textcolor($(this).parent().parent().css("background-color"));
+
+            $(this).after("<span class='md-input md-placeholder'>" + p + "</span>");
+           
+			$(this).css({
+			   color:j + "!important"
+			})
+
+            var x = $(this).offset().left;
+            var y = $(this).offset().top;
+
+            $(this).siblings(".md-input.md-placeholder").css({
+                left: x,
+                top: y
+            }).click(function() {
+                $(this).siblings("input").click().focus()
+            });
+			
+			var ml = $(this).attr("maxlength")
+			
+			if(ml){
+			
+				$(this).after("<span class='md-input md-maxcount'>0/" + ml + "</div>")
+			
+				var v = $(this).val().length;
+				v = v + "/" + ml;
+			
+				var cc = -34-((v.split("").length-4) * 9)
+				
+				$(this).siblings(".md-maxcount").text(v).css({
+					marginLeft:cc
+				})
+				
+			}
+			
+			var type = $(this).attr("type")
+			if(type.toLowerCase() == "password"){
+				
+				$(this).after("<div class='md-input md-visibility'><i class='mdi md-noview'>&#xE8F5;</i></div>")
+				var b = $(this).sibs(".md-visibility")
+				
+				var r = $(this).offset().left + $(this).width() + ($(this).width() - 183)*0.12
+				
+				b.css({
+					left:r + "px"
+				})
+				
+				var s = $(this)
+				
+				b.click(function(){
+					if(b.children().hasClass("md-noview")){
+						b.html("<i class='mdi'>&#xE8F4;</i>");
+						s.attr("type", "text")
+					} else {
+						b.html("<i class='mdi md-noview'>&#xE8F5;</i>");
+						s.attr("type", "password")
+					}
+					
+					s.click().focus()
+					
+				})
+				
+			}
+			
+        }).click(function(e) {
+
+            var c = $(this).attr("color")
+            var x = e.pageX;
+            var t = $(this).offset().top + 30;
+            var d = $(this).offset().left
+            var w = $(this).width();
+
+            $(this).siblings(".md-bar").remove();
+
+            $(this).after("<div class='md-input md-bar'></div>");
+
+            var q = $(this).siblings(".md-bar");
+
+            q.css({
+                left: x,
+                top: t,
+                backgroundColor: c
+            }).animate({
+                left: d,
+                width: w
+            }, 200);
+			
+            var pc = $(this).siblings(".md-input.md-placeholder");
+
+            var t = $(this).offset().top - 22
+
+            if ($(this).val().length == 0) {
+
+                pc.animate({
+                    color: c,
+                    top: t,
+                    fontSize: "14px"
+                }, 200)
+            } else {
+                pc.animate({
+                    color: c
+                }, 200)
+            }
+
+        }).blur(function() {
+            var l = $(this).width() / 2 + $(this).offset().left
+            $(this).siblings(".md-bar").animate({
+                width: "0px",
+                left: l
+            }, 200)
+
+			$(this).siblings(".md-input").animate({
+				color:"#c1c1c1"
+			}, 200)
+			
+            var pc = $(this).siblings(".md-input.md-placeholder");
+            var t = $(this).offset().top
+
+            if ($(this).val().length == 0) {
+
+                pc.animate({
+                    color: "#c1c1c1",
+                    top: t,
+                    fontSize: "18px"
+                }, 200)
+            } else {
+                pc.animate({
+                    color: "#c1c1c1"
+                }, 200)
+			
+            }
+        }).change(function(){
+			var ml = $(this).attr("maxlength")
+			
+			if(ml){
+				var v = $(this).val().length;
+				v = v + "/" + ml;
+			
+				var cc = -34 - ((v.split("").length-4) * 9)
+				
+				$(this).siblings(".md-maxcount").text(v).css({
+					marginLeft:cc
+				})
+				
+			}
+		}).keypress(function(){
+			$(this).change()
+		}).keyup(function(){
+			$(this).change()
+		}).focus(function(){
+			var c = $(this).attr("color")
+			
+			$(this).siblings(".md-input").animate({
+				color:c
+			}, 200)
+		})
+		
+		$("a[href][download]:not([md='false'])").each(function(){
+			
+			var c = $(this).attr("color")
+			var url = $(this).attr("href")
+			
+			$(this).wrap("<a href='" + url + "' download class='md-download-module'></a>");
+			$(this).css({
+				color:c
+			})
+			
+			var p = $(this)			
+			
+			var ftype = "JavaScript"
+			
+			var size
+			$.get(url, function(u){
+				size = hSize(u.split("").length);
+				p.after("<br/><div class='md-size'>" + size + " &#x257C; " + ftype + "</div>");
+			})
+			
+			p.before("<i class='mdi md-download'>&#xE2C4;</i>")
+			
+		})
+		
+		$("textarea:not([md='false'])").click(function(e){
+
+            var c = $(this).attr("color")
+            var x = e.pageX;
+            var t = $(this).offset().top + $(this).height();
+            var d = $(this).offset().left
+            var w = $(this).width();
+
+            $(this).siblings(".md-bar").remove();
+
+            $(this).after("<div class='md-input md-bar'></div>");
+
+            var q = $(this).siblings(".md-bar");
+
+            q.css({
+                left: x,
+                top: t,
+                backgroundColor: c
+            }).animate({
+                left: d,
+                width: w
+            }, 200);
+			
+            var pc = $(this).siblings(".md-input.md-placeholder");
+
+            var t = $(this).offset().top - 22
+
+            if ($(this).val().length == 0) {
+
+                pc.animate({
+                    color: c,
+                    top: t,
+                    fontSize: "14px"
+                }, 200)
+            } else {
+                pc.animate({
+                    color: c
+                }, 200)
+            }
+
+        }).blur(function() {
+            var l = $(this).width() / 2 + $(this).offset().left
+            $(this).siblings(".md-bar").animate({
+                width: "0px",
+                left: l
+            }, 200)
+
+			$(this).siblings(".md-input").animate({
+				color:"#c1c1c1"
+			}, 200)
+			
+            var pc = $(this).siblings(".md-input.md-placeholder");
+            var t = $(this).offset().top
+
+            if ($(this).val().length == 0) {
+
+                pc.animate({
+                    color: "#c1c1c1",
+                    top: t,
+                    fontSize: "18px"
+                }, 200)
+            } else {
+                pc.animate({
+                    color: "#c1c1c1"
+                }, 200)
+			
+            }
+        }).change(function(){
+			var ml = $(this).attr("maxlength")
+			
+			if(ml){
+				var v = $(this).val().length;
+				v = v + "/" + ml;
+			
+				var cc = -34 - ((v.split("").length-4) * 9)
+				
+				$(this).sibs(".md-maxcount").text(v).css({
+					marginLeft:cc
+				})
+				
+			}
+			
+			var m = 22
+			var a = 3.2
+			var l = ($(this).val().split("\n").length*m*a)
+			
+			//$(this).height(l)
+			
+		}).keypress(function(){
+			$(this).change();
+		}).keyup(function(){
+			$(this).change()
+		}).focus(function(){
+			var c = $(this).attr("color")
+			
+			$(this).siblings(".md-input").animate({
+				color:c
+			}, 200)
+		})
+		
+		$("spinner:not([md='false'])").each(function(){
+			
+			var c = $(this).attr("color")
+			if(!c){
+				c = "#000"
+			}
+			
+			var r = "md-" + Math.random().toString().split(".")[1];
+			
+			var s = $(this).attr("size")
+			if(!s){
+				s = 48
+			}
+			
+			$(this).append('<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="75" width="75" viewbox="0 0 75 75"><circle cx="37.5" cy="37.5" r="33.5" stroke-width="8"/></svg>')
+			$(this).addClass("md-preloader").addClass(r)
+			
+			var css = ".md-preloader." + r + " svg circle{stroke:" + c + "}"
+			addcss(css)
+			
+		})
+		
+		$(".md-popup.md-finger").each(function(){
+			
+			var p = $(this)
+			
+			new Fingerprint2().get(function(r){
+				
+				console.log(r)
+				
+				p.children(".md-before").fadeOut(200)
+					
+				if(r != "b6eb74a61a55c03549b2cb897c724048"){
+					p.children(".md-after").delay(200).fadeIn(200)
+				} else {
+					p.children(".md-notouch").delay(200).fadeIn(200)
+				}
+				
+			});
+		})
+		
     })
 }
