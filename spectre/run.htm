@@ -1,0 +1,41 @@
+<html>
+	<head>
+	
+		<script src="https://rawgit.com/IllusionMaterial/Material-Design/master/material.auto.min.js"></script>
+		<script src="dist/system.js"></script>
+		<script src="dist/script.js"></script>
+		<link rel="stylesheet" href="dist/style.css"/>
+	</head>
+	<body>
+		
+		<div class="poweroff"></div>
+		
+		<div class="banner top">
+			<div class="status">
+				<span live="time"></span>
+			</div>
+			<span class="ti">
+				<i class="material-icons navdrawer">&#xE5D2;</i>
+				<span>Spectre</span>
+				<i class="material-icons menu">&#xE5D4;</i>
+			</span>
+		</div>
+		
+		<progress color="amber" class="progress"></progress>
+		
+		<div class="banner left"></div>
+		
+		<div class="more-menu">
+			<a onclick="Material.dialog({type:'alert',msg:sys.info(),title:'Printer Information'})" md='false'><span><i class="material-icons">&#xE88E;</i>Printer Information</span></a>
+			<a md='false'><span><i class="material-icons">&#xE8B8;</i>System Settings</span></a>
+			<a md='false'><span><i class="material-icons">&#xE869;</i>Maintenance</span></a>
+			<hr/>
+			<a md='false'><span><i class="material-icons">&#xE2C4;</i>Install Fillament</span></a>
+			<a md='false'><span><i class="material-icons">&#xE2C6;</i>Uninstall Fillament</span></a>
+			<a md='false'><span><i class="material-icons">&#xE3A3;</i>Purge Fillament</span></a>
+			<hr/>
+			<a onclick="sys.poweroff()" md='false'><span><i class="material-icons">&#xE8AC;</i>Power Off</span></a>
+		</div>
+		
+	</body>
+</html>
