@@ -34,4 +34,24 @@ body {
 	width:100%;
 	height:calc(100% - 64px);
 	z-index:0;
+	border:none;
+	padding:18px;
+}
+p {
+	color:#212121;
+	font-family:roboto;
+	font-size:17px;
+	display:inline-block;
+}
+
+button.submit {
+	width:97.3%;
+	font-family:roboto;
+	font-size:16px;
+	top:87.5%;
+	position:absolute;
+}
+
+hr {
+	width: 97.3%;
 }
