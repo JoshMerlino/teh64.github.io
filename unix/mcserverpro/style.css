@@ -3,9 +3,9 @@ body {
 }
 
 .navbar {
-	background-color:#3f51b5;
 	position:fixed;
-	height:64px;
+	background-color:#4baf4f;
+	height:116px;
 	width:100%;
 	left:0px;
 	top:0px;
@@ -27,15 +27,15 @@ body {
 
 .content {
 	position:fixed;
-	overflow-x:hidden;
-	overflow-y:scroll;
+	overflow:hidden;
 	top:64px;
 	left:0px;
 	width:100%;
 	height:calc(100% - 64px);
 	z-index:0;
 	border:none;
-	padding:18px;
+	padding:0px;
+	background-color:transparent;
 }
 p {
 	color:#212121;
@@ -54,4 +54,32 @@ button.submit {
 
 hr {
 	width: 97.3%;
+}
+
+.navbar .citabs {
+	position:absolute;
+	top:64px;
+	height:52px;
+	width:100%;
+	left:0px;
+	display:table;
+}
+
+.md-tab {
+	position:relative;
+	display:table-cell;
+	cursor:pointer;
+	padding:16px;
+	width:128px;
+	margin:0px;
+	color:rgba(255,255,255,.5);
+	text-align:center;
+	font-family:roboto;
+	font-size:18px;
+	border-bottom:2px solid rgba(255,255,255,0.5);
+}
+
+.md-tab.tabcheck {
+	color:#fff;
+	border-color:#fff;
 }
