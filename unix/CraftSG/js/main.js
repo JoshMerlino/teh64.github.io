@@ -1,4 +1,18 @@
+var ping = {}
+
 $(function(){
+	
+	$.getJSON("http://api.minetools.eu/ping/psg.biz.tm/25565", function(json){
+        ping = json;
+		console.log(ping);
+		$("*").filter("[ping]").each(function(){
+			var a = $(this).attr("ping")
+			$(this).html(eval("ping." + a))
+		})
+		
+		$(".wrapper").remove();
+		
+    });
 	
 	$(".navbar .menu").click(function(){
 		$(".explorer").animate({
