@@ -2,7 +2,7 @@ var ping = {}
 
 $(function(){
 	
-	$.getJSON("http://api.minetools.eu/ping/psg.biz.tm/25565", function(json){
+	$.getJSON("https://api.minetools.eu/ping/psg.biz.tm/25565", function(json){
         ping = json;
 		console.log(ping);
 		$("*").filter("[ping]").each(function(){
