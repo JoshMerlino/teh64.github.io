@@ -91,6 +91,7 @@ body {
 	width:100%;
 	left:0px;
 	top:64px;
+	position:fixed;
 }
 
 .card {
