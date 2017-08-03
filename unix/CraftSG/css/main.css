@@ -1,16 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 
-.wrapper {
-	background-color:#fff;
-	top:0px;
-	left:0px;
-	width:100%;
-	height:100%;
-	z-index:10;
-	position:fixed;
-	text-align:center;
-}
-
 body {
 	background-color:#f5f5f5;
 }
@@ -178,4 +167,42 @@ body {
 
 .card > button:hover {
 	background-color:rgba(0,151,167,.3);
+}
+
+.spinner {
+  animation: rotator $duration linear infinite;
+}
+
+@keyframes rotator {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(270deg); }
+}
+
+.path {
+  stroke-dasharray: 187;
+  stroke-dashoffset: 0;
+  transform-origin: center;
+  animation:
+    dash 1.4s ease-in-out infinite, 
+    colors 5.6s ease-in-out infinite;
+}
+
+@keyframes colors {
+	0% { stroke: #4285F4; }
+	25% { stroke: #DE3E35; }
+	50% { stroke: #F7C223; }
+	75% { stroke: #1B9A59; }
+  100% { stroke: #4285F4; }
+}
+
+@keyframes dash {
+ 0% { stroke-dashoffset: 187; }
+ 50% {
+   stroke-dashoffset: 46.75;
+   transform:rotate(135deg);
+ }
+ 100% {
+   stroke-dashoffset: 187;
+   transform:rotate(450deg);
+ }
 }
