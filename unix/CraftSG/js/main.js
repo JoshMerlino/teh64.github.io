@@ -1,4 +1,7 @@
 var ping = {};
+function application(){
+	window.open("https://goo.gl/forms/wbRLBnSBst8XIzy93");
+}
 
 $(function(){
 	
@@ -27,9 +30,11 @@ $(function(){
 			opacity:"0",
 			left:"-440px"
 		},200);
+		
+		$(".application").fadeOut(200);
 	})
 	
-	$(".explorer, .navbar .menu").click(function(e){
+	$(".explorer, .navbar .menu, .application, .staffapply").click(function(e){
 		e.stopPropagation();
 	});
 	
@@ -37,4 +42,16 @@ $(function(){
 		window.location.href = $(this).attr("href");
 	});
 	
+	$(".card.info.staff").height($(".card.info.staff").height() + 48);
+	
+	$("hr").each(function(){
+		$(this).css({
+			left:$(this).parent().offset().left
+		})
+	})
+	
+	$(".staffcontact").click(function(){
+		var mail = "mailto:" + $(this).attr("contact");
+		window.location.href = mail;
+	})
 })

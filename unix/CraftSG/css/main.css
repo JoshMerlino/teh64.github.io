@@ -170,21 +170,25 @@ body {
 }
 
 .spinner {
-  animation: rotator $duration linear infinite;
+	animation: rotator 1.4s linear infinite;
 }
 
 @keyframes rotator {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(270deg); }
+	0% { 
+		transform: rotate(0deg); 
+	}
+	100% { 	
+		transform: rotate(270deg); 
+	}
 }
 
 .path {
-  stroke-dasharray: 187;
-  stroke-dashoffset: 0;
-  transform-origin: center;
-  animation:
-    dash 1.4s ease-in-out infinite, 
-    colors 5.6s ease-in-out infinite;
+	stroke-dasharray: 187;
+	stroke-dashoffset: 0;
+	transform-origin: center;
+	animation:
+		dash 1.4s ease-in-out infinite, 
+		colors 5.6s ease-in-out infinite;
 }
 
 @keyframes colors {
@@ -192,17 +196,33 @@ body {
 	25% { stroke: #DE3E35; }
 	50% { stroke: #F7C223; }
 	75% { stroke: #1B9A59; }
-  100% { stroke: #4285F4; }
+	100% { stroke: #4285F4; }
 }
 
 @keyframes dash {
- 0% { stroke-dashoffset: 187; }
- 50% {
-   stroke-dashoffset: 46.75;
-   transform:rotate(135deg);
- }
- 100% {
-   stroke-dashoffset: 187;
-   transform:rotate(450deg);
- }
+	0% { stroke-dashoffset: 187; }
+	50% {
+		stroke-dashoffset: 46.75;
+		transform:rotate(135deg);
+	}
+	100% {
+		stroke-dashoffset: 187;
+		transform:rotate(450deg);
+	}
+}
+
+.card.info.staff {
+	height:auto;
+}
+
+hr {
+	color:#c1c1c1;
+	height:1px;
+	margin:24px;
+	margin-left:-24px;
+	margin-right:-24px;
+}
+
+.staffcontact {
+	cursor:pointer;
 }
