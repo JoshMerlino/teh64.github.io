@@ -64,7 +64,7 @@ $(function(){
 			loc = "http://csg.biz.tm/vote";
 		}
 		
-		window.location.href = loc;
+		window.parent.location.href = loc;
 	})
 	
 })
