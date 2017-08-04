@@ -38,10 +38,6 @@ $(function(){
 		e.stopPropagation();
 	});
 	
-	$(".explorer").children("option").click(function(){
-		window.location.href = $(this).attr("href");
-	});
-	
 	$(".card.info.staff").height($(".card.info.staff").height() + 48);
 	
 	$("hr").each(function(){
@@ -54,4 +50,21 @@ $(function(){
 		var mail = "mailto:" + $(this).attr("contact");
 		window.location.href = mail;
 	})
+	
+	$(".explorer").children("option").click(function(){
+		var c = $(this).text().toLowerCase()
+		
+		if(c == "home") {
+			loc = "http://csg.biz.tm";
+		} else if(c == "forum"){
+			loc = "http://csg.biz.tm/forum";
+		} else if(c == "store"){
+			loc = "http://csg.biz.tm/donate";
+		} else if(c == "vote"){
+			loc = "http://csg.biz.tm/vote";
+		}
+		
+		window.location.href = loc;
+	})
+	
 })
