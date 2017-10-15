@@ -282,4 +282,4 @@
 		});
 		return this;
 	}
-})($,Material);
+})($);
