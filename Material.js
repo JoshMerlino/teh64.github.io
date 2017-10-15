@@ -7,10 +7,6 @@
 		})
 	}
 	
-	Material.colorPicker = function(c){
-		
-	}
-	
 	$(function(){
 		$("head").append('<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">');
 		$("head").append('<link href="https://rawgit.com/Teh64/Waves/master/dist/waves.css" rel="stylesheet">');
